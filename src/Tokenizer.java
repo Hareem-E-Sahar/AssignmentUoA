@@ -26,7 +26,7 @@ public class Tokenizer {
 		int noOfTokens=0;
 		ArrayList <String> tokenList=new ArrayList<String>();   
 
-	   	final String regex = "[\\w--]+|[\\w++][a-zA-Z]+|\\\\d+|[\\\\^$.|?<>;=]|[()]+|[\\{}]+|[++]+|[--]+\n\n\n";	
+	   	final String regex = "[\\w--]+|[\\w++][a-zA-Z]+|\\\\d+|[\\\\^$.|?<>;=]|[()]+|[\\{}]+|[++]+|[--]+\n\n\n"; //regex Expression	
 		final Pattern pattern = Pattern.compile(regex);
 		final Matcher matcher = pattern.matcher(str);
 
