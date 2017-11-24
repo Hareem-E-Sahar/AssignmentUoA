@@ -1,0 +1,15 @@
+uptil now I was able read a file line by line, tokenize a string and write tokens to a csv file.
+
+Now see if changing .txt extension to .java extension works or not. Yes it does.
+open csv file in append mode because it closes after writing tokens of one line to csv.
+Integrate reading and tokenizing so that as soon as a line is read tokens are saved in file.
+
+
+Split funcrtion does not work on dot.
+The method takes a regular expression, not a string, and the dot has a special meaning in regular expressions. Escape it like so split("\\."). You need a double backslash, the second one escapes the first.
+
+Space delimeter creates problems on first string
+
+
+"[\\w--]+|[\\w++][a-zA-Z]+|\\\\d+|[\\\\^$.|?<>;=]|[()]+|[\\{}]+|[++]+|[--]+\n\n\n" works but the following does not
+[==]+|[!=]+|[\w--]+|[\w++]+|[a-zA-Z]+|\d+|[\\^$.|?<>;=(){}]
