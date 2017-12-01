@@ -10,3 +10,4 @@ public class ScoreCalculator {
 	return (Math.log(a) / Math.log(2))*(Math.log(b)/Math.log(2));
 	}
 }
+//
