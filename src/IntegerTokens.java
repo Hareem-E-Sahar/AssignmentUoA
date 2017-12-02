@@ -19,10 +19,12 @@ public class IntegerTokens {
 	
 	public void findUniqueTokens(final ArrayList<LineToken> tokenList)
 	{
+		
 		for(LineToken tk:tokenList)
 		{
 			for(String t:tk.tok)
-				uniqueTokens.put(t,counter++);//counter;
+				if(!uniqueTokens.containsKey(t))
+					uniqueTokens.put(t,counter++);//counter;
 		}
 	}
 	
@@ -49,11 +51,13 @@ public class IntegerTokens {
 		{	
 			tempStr.add(getKeyFromValue(s));
 		}
-		/*System.out.print(" String representation:");
+		/*System.out.print(" String representation:"+tempStr);
 		for(String s:tempStr)
 			System.out.print(s+",");
 		System.out.println();*/
+		
 		return tempStr;
+		
 	}
 	
 	void displayHashMap()

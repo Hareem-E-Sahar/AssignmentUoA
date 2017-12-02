@@ -95,17 +95,17 @@ public class StringMatcher {
 			//  LinkedHashMap <ArrayList <Integer>,Integer> tempMap=new LinkedHashMap <ArrayList <Integer>,Integer>();
 			  for (int j = i+1; j < csv_it.getIntTokenList().size(); j++)
 			  {  
-				  	System.out.print("\nComparing "+i+" with "+j);
+				  	System.out.println("\nComparing String "+i+" with String "+j);
 				  	
 				  	tObj = new LineTokenInt(csv_it.getIntTokenList().get(i).tok);
 			     	tObj2 = new LineTokenInt(csv_it.getIntTokenList().get(j).tok);
-			     	csv_it.convertIntToString(tObj.tok);csv_it.convertIntToString(tObj2.tok);
+			     	System.out.println("String: "+csv_it.convertIntToString(tObj.tok));
+			     	System.out.println("String: "+csv_it.convertIntToString(tObj2.tok));
 			     	
 			     	resSeqInt= longestSequenceInt(tObj.tok,tObj2.tok);
-			     	csv_it.convertIntToString(resSeqInt);
-			       // ArrayList<ArrayList<Integer>> tempList=findSubSequences(new LineTokenInt(resSeqInt));
-			     
-			    	System.out.println("Common Sequence: "+csv_it.convertIntToString(resSeqInt));    //comment it later     
+			     	//System.out.println("Printing Common Sequence");    //comment it later
+			     	ArrayList<String> strList=csv_it.convertIntToString(resSeqInt);
+			        ArrayList<ArrayList<Integer>> tempList=findSubSequences(new LineTokenInt(resSeqInt));
 			  }
 			}
 		  	LineTokenInt ret=new LineTokenInt(resSeqInt);
@@ -114,7 +114,6 @@ public class StringMatcher {
 	    			 
 	    public ArrayList <ArrayList <Integer>> findSubSequences(LineTokenInt obj)
 	    {
-	    	
 	    	  int k=0; 
 	    	  ArrayList<ArrayList <Integer>> tempList=new ArrayList<ArrayList<Integer>>();
 	          ArrayList<Integer> temp=new ArrayList<Integer>();
@@ -157,26 +156,13 @@ public class StringMatcher {
 			  		
 			       return  tempList;
 	    	}
-			   
-	
-    
-  void  displaySequences()
-  {
-	  for (Map.Entry<ArrayList<Integer>, Integer> ent : resultMap.entrySet())
-		{
-			ArrayList<Integer> key = ent.getKey();
-		    Integer value = ent.getValue();
-		    System.out.println("Key-"+key+"\nValue-"+value+"\n\n");
-		}
-	
-  }
+			  
   
-
   public void saveSubsequences(ArrayList <Integer> temp)
   {	
-		
+	  
 	 		if(temp.size()>1)
-			{   ;
+			{   
 				 if(resultMap.containsKey(temp))
 				  {  
 					 resultMap.put(temp, resultMap.get(temp)+1);//previous count+1
@@ -195,17 +181,16 @@ public class StringMatcher {
   }
 void  displaySubsequences(IntegerTokens csv_it)
 {
-	 System.out.println("Printing subsequences\n");			   
+	 System.out.println("Printing Subsequences\n");			   
 	 
 	  for (Map.Entry<ArrayList<Integer>, Integer> ent : resultMap.entrySet())
 		{
 			ArrayList<Integer> key = ent.getKey();
 		    Integer value = ent.getValue();
 		    ArrayList <String> list=csv_it.convertIntToString(key);
-		    System.out.println("Value-"+value+"\n\n");
-		    System.out.print("Key-");
-		    for(String s:list)
-		    	System.out.print(s);
+		       
+		    	System.out.println("Key:"+list);
+		    	System.out.println("Value-"+value);
 		}
 	
 }

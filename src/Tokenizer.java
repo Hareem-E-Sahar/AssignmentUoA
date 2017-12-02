@@ -6,7 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Tokenizer {
-	 HashMap <ArrayList<String>,Integer> tokensMap=new HashMap<ArrayList<String>,Integer>();
+	HashMap <ArrayList<String>,Integer> tokensMap=new HashMap<ArrayList<String>,Integer>();
+/*	ArrayList <LineToken> tokenList=new ArrayList<LineToken>(); 	// saves tokens in readFile class function
+	ArrayList <LineTokenInt> intTokenList=new ArrayList<>();
+*/	
 	
 	public static ArrayList<String> tokenize(String string) throws IOException {
 		ArrayList<String> tok = new ArrayList<>(0);
@@ -46,5 +49,11 @@ public 	void displayTokens()
 		  tokensMap.put(token, 1);
 	  }
   }
+/*public void saveLineTokens(LineToken token)
+{
+	  tokenList.add(token);
+	 
+}*/
+	
 	
 }

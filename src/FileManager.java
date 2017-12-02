@@ -36,10 +36,7 @@ public class FileManager {
 				}
 			}
 			
-			it.findUniqueTokens(matcher.tokenList);
 			
-			for(LineToken t:matcher.tokenList)
-		    	it.getIntTokenList().add(it.convertStringToInt(t));
 			
 			//Printing Input string as a string of integers where each integer
 			// value corresponds a token
@@ -57,10 +54,13 @@ public class FileManager {
 		}catch(IOException e){
 				e.printStackTrace();
 		}
+		
 		}
 	}	
 	
 	
+	////********This function creates a file named Tokens.csv and writes to it******///
+
 	public void writeTokensToFile(HashMap <ArrayList<String>,Integer> tokenList)
 	{
 		
@@ -101,11 +101,19 @@ public class FileManager {
 		} catch (IOException e) {
 			System.out.println("Exception while opening output file");
 			e.printStackTrace();
-		}
+		}//for ends
+		it.findUniqueTokens(matcher.tokenList);
+		
+		for(LineToken t:matcher.tokenList)
+	    	it.getIntTokenList().add(it.convertStringToInt(t));
 		
 	}
 	
-/*	public void writeMatchesToFile(final ArrayList <ArrayList<String>> result)
+
+
+	////********This function creates a file named Matches.csv and writes to it******///
+	
+	public void writeMatchesToFile(final LinkedHashMap <ArrayList<Integer>,Integer> matches,IntegerTokens csv_it)
 	{
 		
 		File filename=null;
@@ -115,50 +123,17 @@ public class FileManager {
 			filename=new File("Matches.csv");
 			filename.createNewFile();
 			fw=new FileWriter(filename);
-			
-			for(ArrayList<String> res:result)
-			{	
-				Integer count=Collections.frequency((Collection<?>) result, res);
-				fw.append(count.toString());
-				fw.append(",");
-			//	Double score=ScoreCalculator.calculateScore(count,);
-			//	fw.append(score.toString());
-				fw.append(",");
-				for(String str:res)
-			
-				{
-					fw.append(str);
-					fw.append(",");
-					
-				}
-				fw.append("\n");	//each new subsequence begins on next line
-			}
-			fw.close();
-		} catch (IOException e) {
-			System.out.println("Exception while opening output file");
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public void writeMatchesToFile(final HashMap <ArrayList<String>,Integer> matches)
-	{
-		
-		File filename=null;
-		FileWriter fw=null;
-		try {
 
-			filename=new File("Matches.csv");
-			filename.createNewFile();
-			fw=new FileWriter(filename);
-			
 			Integer value=0;
-			ArrayList<String> key=new ArrayList<String> ();
-			for (Map.Entry<ArrayList<String>, Integer> entry : matches.entrySet())
+			ArrayList<Integer> tempKey;
+			System.out.println("size:"+matches.size());
+			for (Map.Entry<ArrayList<Integer>, Integer> entry : matches.entrySet())
 			{
-			    key = entry.getKey();
+			    tempKey = entry.getKey();
+			    ArrayList<String> key= csv_it.convertIntToString(tempKey);
 			    Integer numOfTokens=key.size();
-			    value = entry.getValue();
+			    value = entry.getValue();			//count
+
 			    Double score=ScoreCalculator.calculateScore(value,numOfTokens);
 			   
 			    fw.append(score.toString());		//score = log2(count), 
@@ -169,7 +144,8 @@ public class FileManager {
 			    fw.append(",");
 			    for(String str:key)
 				{
-					fw.append(str);
+			    	
+			    	fw.append(str);
 					fw.append(",");
 					
 				}
@@ -185,7 +161,7 @@ public class FileManager {
 		
 	}
 
-	*/
+
 	void readListOfFiles()
 	{
 		try{
@@ -213,52 +189,5 @@ public class FileManager {
 		
 	}
 	
-	public void writeMatchesToFile(final LinkedHashMap <ArrayList<Integer>,Integer> matches,IntegerTokens csv_it)
-	{
-		
-		File filename=null;
-		FileWriter fw=null;
-		try {
 
-			filename=new File("Matches.csv");
-			filename.createNewFile();
-			fw=new FileWriter(filename);
-
-			Integer value=0;
-			ArrayList<Integer> tempKey;
-			for (Map.Entry<ArrayList<Integer>, Integer> entry : matches.entrySet())
-			{
-			    tempKey = entry.getKey();
-			    ArrayList<String> list= csv_it.convertIntToString(tempKey);
-			    LineToken key= new LineToken(list);
-			    Integer numOfTokens=key.tok.size();
-			    value = entry.getValue();			//count
-
-			    Double score=ScoreCalculator.calculateScore(value,numOfTokens);
-			   
-			    fw.append(score.toString());		//score = log2(count), 
-			    fw.append(",");
-			    fw.append(numOfTokens.toString());	//number of tokens of string
-			    fw.append(",");
-			    fw.append(value.toString());		//value is count or occurrence of sequence in files
-			    fw.append(",");
-			    for(String str:key.tok)
-				{
-					fw.append(str);
-					fw.append(",");
-					
-				}
-				
-				fw.append("\n");
-			}
-			fw.close();
-
-		} catch (IOException e) {
-			System.out.println("Exception while opening output file");
-			e.printStackTrace();
-		}
-		
-	}
-
-	
 }
